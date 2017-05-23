@@ -1,6 +1,6 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.lending_types;
 
-import de.dhbw.stginf16a.bankproject.groupa.data.Customer;
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,7 @@
 package de.dhbw.stginf16a.bankproject.groupa.data;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
+
 import java.util.Date;
 
 /**

@@ -1,6 +1,6 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.account_types;
 
-import de.dhbw.stginf16a.bankproject.groupa.data.Customer;
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.Transaction;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
 
@@ -18,5 +18,5 @@ public abstract class Deposit {
     private long balance = 0;
     private ArrayList<Transaction> transactions;
 
-    public abstract boolean customerEligable(Customer customer);
+    public abstract boolean customerEligible(Customer customer);
 }

@@ -1,20 +1,23 @@
-package de.dhbw.stginf16a.bankproject.groupa.data;
+package de.dhbw.stginf16a.bankproject.groupa.data.person_types;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
+import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
+
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Created by leons on 5/23/17.
  */
-public class Customer extends Person {
+public class Customer extends Person implements Serializable {
     private static final int LEGAL_AGE = 18;
-    private static int customer_id_count;
 
-    private int customer_id;
+    private int customerId = -1;
     private LegalGuardian legalGuardian = null;
 
-    private static int getNextCustomerId() {
-        return ++customer_id_count;
-    }
+    private ArrayList<Lending> lendings = new ArrayList<>();
+    private ArrayList<Deposit> deposits = new ArrayList<>();
 
     public Customer(
             String firstName,
@@ -41,6 +44,14 @@ public class Customer extends Person {
             Gender gender
     ) throws CustomerTooYoungException {
         this(firstName, lastName, address, email, birthday, gender, null);
+    }
+
+    public void setId(int id) {
+        this.customerId = id;
+    }
+
+    public int getId() {
+        return customerId;
     }
 
 }
