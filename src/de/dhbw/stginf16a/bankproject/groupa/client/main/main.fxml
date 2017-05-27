@@ -8,6 +8,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.dhbw.stginf16a.bankproject.groupa.main.Controller"
+            fx:controller="de.dhbw.stginf16a.bankproject.groupa.client.main.Controller"
             prefHeight="400.0" prefWidth="600.0">
 </AnchorPane>

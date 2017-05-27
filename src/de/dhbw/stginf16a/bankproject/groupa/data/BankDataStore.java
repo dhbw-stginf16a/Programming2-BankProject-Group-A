@@ -1,9 +1,10 @@
 package de.dhbw.stginf16a.bankproject.groupa.data;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DataStoreAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 
@@ -11,14 +12,12 @@ import java.util.HashMap;
  * Created by leons on 5/23/17.
  */
 public class BankDataStore implements Serializable {
-    private int
-            customerIdCount = 0,
-            depositIdCount = 0,
-            cardIdCount = 0,
-            investmentIdCount = 0,
-            lendingIdCount = 0;
-
-    private HashMap<Integer, Customer> customers = new HashMap<>();
+    public static BankDataStore dataStore = new BankDataStore();
+    public static BankDataStore dispatchAction(BankDataStore dataStore, DataStoreAction action) {
+        BankDataStore newDataStore = action.apply(dataStore);
+        newDataStore.callEventListeners();
+        return newDataStore;
+    }
 
     public static String serialize(BankDataStore dataStore) throws BankDataStoreSerializationException {
         try {
@@ -55,16 +54,25 @@ public class BankDataStore implements Serializable {
         return (BankDataStore) object;
     }
 
+    // ---------- DATA SECTION ----------
+    private ArrayList<DataStoreUpdateEventListener> eventListeners = new ArrayList<>();
+    public int
+            customerIdCount = 0,
+            depositIdCount = 0,
+            cardIdCount = 0,
+            investmentIdCount = 0,
+            lendingIdCount = 0;
+    public HashMap<Integer, Customer> customers = new HashMap<>();
+
+    public void addEventListener(DataStoreUpdateEventListener eventListener) {
+        eventListeners.add(eventListener);
+    }
+    public void callEventListeners() {
+        for (DataStoreUpdateEventListener eventListener: this.eventListeners) {
+            eventListener.onDataStoreUpdate(this);
+        }
+    }
     public Customer getCustomerById(int id) {
         return customers.get(id);
     }
-
-    public Customer addCustomer(Customer customer) {
-        customer.setId(++customerIdCount);
-        customers.put(customer.getId(), customer);
-
-        // Return the Customer as you may want to know the ID directly
-        return customer;
-    }
-
 }
