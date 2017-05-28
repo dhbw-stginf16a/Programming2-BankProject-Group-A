@@ -74,7 +74,7 @@ public class BankDataStoreWrapper {
      */
     private void callEventListeners() {
         for (DataStoreUpdateEventListener eventListener: this.eventListeners.values()) {
-            eventListener.onDataStoreUpdate(dataStore);
+            eventListener.onDataStoreUpdate(this);
         }
     }
 
