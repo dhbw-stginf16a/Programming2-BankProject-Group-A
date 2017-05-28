@@ -10,15 +10,15 @@ import java.util.HashMap;
 
 /**
  * Created by leons on 5/23/17.
+ *
+ * The BankDataStore object manages all bank-data of the application.
+ *
+ * It exposes methods to get data.
+ * Altering Data is done by dispatching a DataStoreAction which will alter the store.
+ *
  */
 public class BankDataStore implements Serializable {
-    public static BankDataStore dataStore = new BankDataStore();
-    public static BankDataStore dispatchAction(BankDataStore dataStore, DataStoreAction action) {
-        BankDataStore newDataStore = action.apply(dataStore);
-        newDataStore.callEventListeners();
-        return newDataStore;
-    }
-
+    // ---------- SERIALIZATION ----------
     public static String serialize(BankDataStore dataStore) throws BankDataStoreSerializationException {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -55,7 +55,6 @@ public class BankDataStore implements Serializable {
     }
 
     // ---------- DATA SECTION ----------
-    private ArrayList<DataStoreUpdateEventListener> eventListeners = new ArrayList<>();
     public int
             customerIdCount = 0,
             depositIdCount = 0,
@@ -64,15 +63,6 @@ public class BankDataStore implements Serializable {
             lendingIdCount = 0;
     public HashMap<Integer, Customer> customers = new HashMap<>();
 
-    public void addEventListener(DataStoreUpdateEventListener eventListener) {
-        eventListeners.add(eventListener);
-    }
-    public void callEventListeners() {
-        for (DataStoreUpdateEventListener eventListener: this.eventListeners) {
-            eventListener.onDataStoreUpdate(this);
-        }
-    }
-    public Customer getCustomerById(int id) {
-        return customers.get(id);
-    }
+
+
 }

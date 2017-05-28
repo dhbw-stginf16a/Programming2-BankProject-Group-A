@@ -17,12 +17,14 @@ public class AddCustomerAction extends DataStoreAction implements Serializable {
     }
 
     @Override
-    public BankDataStore apply(BankDataStore originalDataStore) {
-        originalDataStore.customers.put(
-                ++originalDataStore.customerIdCount,
+    public BankDataStore apply(BankDataStore dataStore) {
+        // DataStore is already cloned, can be mutated now
+
+        dataStore.customers.put(
+                ++dataStore.customerIdCount,
                 this.customer
         );
 
-        return originalDataStore;
+        return dataStore;
     }
 }
