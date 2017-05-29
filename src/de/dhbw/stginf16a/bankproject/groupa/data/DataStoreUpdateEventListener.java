@@ -5,6 +5,6 @@ package de.dhbw.stginf16a.bankproject.groupa.data;
  */
 public abstract class DataStoreUpdateEventListener {
 
-    public abstract void onDataStoreUpdate(BankDataStore dataStore);
+    public abstract void onDataStoreUpdate(BankDataStoreWrapper dataStore);
 
 }

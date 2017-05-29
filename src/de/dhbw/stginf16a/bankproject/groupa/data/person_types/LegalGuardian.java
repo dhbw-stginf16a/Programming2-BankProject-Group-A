@@ -7,15 +7,4 @@ import java.time.LocalDate;
  */
 public class LegalGuardian extends Person {
 
-   public LegalGuardian(
-           String firstName,
-           String lastName,
-           String address,
-           String email,
-           LocalDate birthday,
-           Gender gender
-   ) {
-      super(firstName, lastName, address, email, birthday, gender);
-   }
-
 }

@@ -60,7 +60,8 @@ public class BankDataStore implements Serializable {
             depositIdCount = 0,
             cardIdCount = 0,
             investmentIdCount = 0,
-            lendingIdCount = 0;
+            lendingIdCount = 0,
+            transactionIdCount = 0;
     public HashMap<Integer, Customer> customers = new HashMap<>();
 
 
