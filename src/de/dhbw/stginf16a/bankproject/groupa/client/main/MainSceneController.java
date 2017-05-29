@@ -4,9 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-
-
-
 /**
  * Created by Jan-Robin Aumann on 23.05.2017.
  */
