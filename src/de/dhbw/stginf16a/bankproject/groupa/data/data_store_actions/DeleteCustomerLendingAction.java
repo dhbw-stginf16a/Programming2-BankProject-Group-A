@@ -23,4 +23,8 @@ public class DeleteCustomerLendingAction extends DataStoreAction {
         }
         return dataStore;
     }
+
+    public String toString() {
+        return String.format("%s: Deleted lending id %d for customer id %d",this.getClass().getSimpleName(), lendingId, customerId);
+    }
 }

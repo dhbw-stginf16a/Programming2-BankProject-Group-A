@@ -43,4 +43,8 @@ public class CreateLendingAction extends DataStoreAction {
 
         return dataStore;
     }
+
+    public String toString() {
+        return String.format("%s: Create lending with id %d for customer %d", this.getClass().getSimpleName(), lending.id, customerId);
+    }
 }

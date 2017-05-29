@@ -10,10 +10,10 @@ import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 public class CreateDepositAction extends DataStoreAction {
 
     private Deposit deposit;
-    private int customer_id;
+    private int customerId;
 
-    public CreateDepositAction(DepositType type, int customer_id) {
-        this.customer_id = customer_id;
+    public CreateDepositAction(DepositType type, int customerId) {
+        this.customerId = customerId;
 
         switch (type) {
             case JuniorAccount:
@@ -39,12 +39,17 @@ public class CreateDepositAction extends DataStoreAction {
 
             deposit.id = id;
 
-            Customer customer = dataStore.customers.get(customer_id);
+            Customer customer = dataStore.customers.get(customerId);
             customer.deposits.put(id, deposit);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("Error while adding a deposit to a customer");
         }
 
         return dataStore;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: Create Deposit with id %d for Customer %d",this.getClass().getSimpleName(), deposit.id, customerId);
     }
 }
