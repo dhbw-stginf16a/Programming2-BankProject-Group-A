@@ -2,6 +2,7 @@ package de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStore;
 import de.dhbw.stginf16a.bankproject.groupa.data.account_types.*;
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 /**
  * Created by leons on 5/29/17.
@@ -12,6 +13,8 @@ public class CreateDepositAction extends DataStoreAction {
     private int customer_id;
 
     public CreateDepositAction(DepositType type, int customer_id) {
+        this.customer_id = customer_id;
+
         switch (type) {
             case JuniorAccount:
                 deposit = new JuniorAccount();
@@ -35,7 +38,9 @@ public class CreateDepositAction extends DataStoreAction {
             int id = ++dataStore.depositIdCount;
 
             deposit.id = id;
-            dataStore.customers.get(customer_id).deposits.put(id, deposit);
+
+            Customer customer = dataStore.customers.get(customer_id);
+            customer.deposits.put(id, deposit);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("Error while adding a deposit to a customer");
         }

@@ -7,10 +7,14 @@ import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.*;
  * Created by leons on 5/29/17.
  */
 public class CreateLendingAction extends DataStoreAction {
-    Lending lending;
-    int customer_id;
+    private Lending lending;
+    private int customerId;
+    private long interestRate;
 
-    public CreateLendingAction(LendingType type, int customer_id) {
+    public CreateLendingAction(LendingType type, int customerId, long interestRate) {
+        this.customerId = customerId;
+        this.interestRate = interestRate;
+
         switch (type) {
             case CorporateLoan:
                 lending = new CorporateLoan();
@@ -26,11 +30,13 @@ public class CreateLendingAction extends DataStoreAction {
 
     @Override
     public BankDataStore apply(BankDataStore dataStore) throws DataStoreActionApplyException {
-        try{
+        try {
             int id = ++dataStore.lendingIdCount;
             lending.id = id;
+            lending.customerId = customerId;
+            lending.interestRate = interestRate;
 
-            dataStore.customers.get(customer_id).lendings.put(id, lending);
+            dataStore.customers.get(customerId).lendings.put(id, lending);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("Error while adding a lending to a customer");
         }

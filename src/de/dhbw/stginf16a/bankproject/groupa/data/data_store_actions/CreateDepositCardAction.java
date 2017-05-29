@@ -1,9 +1,11 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStore;
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.ChequeCard;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.CreditCard;
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 /**
  * Created by leons on 5/29/17.
@@ -28,7 +30,10 @@ public class CreateDepositCardAction extends DataStoreAction {
             int id = ++dataStore.cardIdCount;
 
             card.cardId = id;
-            dataStore.customers.get(card.cardHolderId).deposits.get(card.depositId).cards.add(card);
+
+            Customer customer = dataStore.customers.get(card.cardHolderId);
+            Deposit deposit = customer.deposits.get(card.depositId);
+            deposit.cards.add(card);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("An error occured while creating a card and adding it to a customers deposit.");
         }
