@@ -20,3 +20,4 @@ public abstract class Deposit {
 
     public abstract boolean customerEligible(Customer customer);
 }
+

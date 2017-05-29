@@ -1,10 +1,9 @@
 package de.dhbw.stginf16a.bankproject.groupa.client.main;
 
-import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStore;
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreSerializationException;
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
 import de.dhbw.stginf16a.bankproject.groupa.data.DataStoreUpdateEventListener;
-import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.AddCustomerAction;
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.CreateCustomerAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Gender;
@@ -28,7 +27,15 @@ public class Testing {
                 Gender.MALE
         );
 
-        dataStore.dispatch(new AddCustomerAction(newCustomer));
+        dataStore.addEventListener(new DataStoreUpdateEventListener() {
+            @Override
+            public void onDataStoreUpdate(BankDataStoreWrapper dataStore) {
+                System.out.println(dataStore.getCustomerById(1).getId());
+            }
+        });
+
+        // Dispatch an action (add customer in this case)
+        dataStore.dispatch(new CreateCustomerAction(newCustomer));
 
         System.out.println(dataStore.getCustomerById(1).getAgeInYears());
     }

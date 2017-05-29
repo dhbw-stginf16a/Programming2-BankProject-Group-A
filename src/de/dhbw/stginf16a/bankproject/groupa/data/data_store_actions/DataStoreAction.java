@@ -9,6 +9,6 @@ import java.io.Serializable;
  */
 public abstract class DataStoreAction implements Serializable {
 
-    public abstract BankDataStore apply(BankDataStore originalDataStore) throws DataStoreActionApplyException;
+    public abstract BankDataStore apply(BankDataStore clonedDataStore) throws DataStoreActionApplyException;
 
 }
