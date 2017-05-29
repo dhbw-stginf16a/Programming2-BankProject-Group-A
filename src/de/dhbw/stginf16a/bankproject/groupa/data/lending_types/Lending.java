@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * Created by leons on 5/23/17.
  */
 public abstract class Lending {
-    private int id;
-    private ArrayList<Customer> customers;
+    public int id;
+    public int customerId;
 
-    private long amount;
+    public long amount;
 
-    private long interestRate; // per 1000
+    public long interestRate; // per 1000
 }

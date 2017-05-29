@@ -5,18 +5,19 @@ import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Jan-Robin Aumann on 23.05.2017.
  */
 public abstract class Deposit {
-    private int id;
+    public int id;
 
-    private ArrayList<Customer> accountHolders;
-    private ArrayList<Card> cards;
+    public int accountHolderId;
+    public ArrayList<Card> cards;
 
-    private long balance = 0;
-    private ArrayList<Transaction> transactions;
+    public long balance = 0;
+    public HashMap<Integer, Transaction> transactions;
 
     public abstract boolean customerEligible(Customer customer);
 }

@@ -6,6 +6,7 @@ import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by leons on 5/23/17.
@@ -16,6 +17,6 @@ public class Customer extends Person implements Serializable {
     public int customerId = -1;
     public LegalGuardian legalGuardian = null;
 
-    public ArrayList<Lending> lendings = new ArrayList<>();
-    public ArrayList<Deposit> deposits = new ArrayList<>();
+    public HashMap<Integer, Lending> lendings = new HashMap<>();
+    public HashMap<Integer, Deposit> deposits = new HashMap<>();
 }

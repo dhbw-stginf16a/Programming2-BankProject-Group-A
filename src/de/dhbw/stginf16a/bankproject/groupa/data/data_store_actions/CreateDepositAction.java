@@ -32,7 +32,10 @@ public class CreateDepositAction extends DataStoreAction {
     @Override
     public BankDataStore apply(BankDataStore dataStore) throws DataStoreActionApplyException {
         try {
-            dataStore.customers.get(customer_id).deposits.add(deposit);
+            int id = ++dataStore.depositIdCount;
+
+            deposit.id = id;
+            dataStore.customers.get(customer_id).deposits.put(id, deposit);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("Error while adding a deposit to a customer");
         }

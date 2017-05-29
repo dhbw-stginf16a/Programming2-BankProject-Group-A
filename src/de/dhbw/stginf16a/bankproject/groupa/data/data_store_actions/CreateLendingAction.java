@@ -27,7 +27,10 @@ public class CreateLendingAction extends DataStoreAction {
     @Override
     public BankDataStore apply(BankDataStore dataStore) throws DataStoreActionApplyException {
         try{
-            dataStore.customers.get(customer_id).lendings.add(lending);
+            int id = ++dataStore.lendingIdCount;
+            lending.id = id;
+
+            dataStore.customers.get(customer_id).lendings.put(id, lending);
         } catch (Exception e) {
             throw new DataStoreActionApplyException("Error while adding a lending to a customer");
         }
