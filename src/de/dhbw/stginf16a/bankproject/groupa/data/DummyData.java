@@ -60,7 +60,7 @@ public class DummyData {
         dataStore.dispatch(new CreateDepositCardAction(CreditCard.class, 4, 5));
 
         dataStore.dispatch(new MakeWithdrawalAction(3, 4, -50000));
-        dataStore.dispatch(new CreateTransactionAction(3, 4, 1, 1 30000, "Koks"));
+        dataStore.dispatch(new CreateTransactionAction(3, 4, 1, 1, 30000, "Koks"));
     }
 
 }

@@ -12,22 +12,17 @@ public class CreateDepositAction extends DataStoreAction {
     private Deposit deposit;
     private int customerId;
 
-    public CreateDepositAction(DepositType type, int customerId) {
+    public CreateDepositAction(Class depositClass, int customerId) {
         this.customerId = customerId;
 
-        switch (type) {
-            case JuniorAccount:
-                deposit = new JuniorAccount();
-                break;
-            case CurrentAccount:
-                deposit = new CurrentAccount();
-                break;
-            case StudentSavings:
-                deposit = new StudentSavings();
-                break;
-            case CorporateSavings:
-                deposit = new CorporateSavings();
-                break;
+        if (depositClass == JuniorAccount.class) {
+            deposit = new JuniorAccount();
+        } else if (depositClass == CurrentAccount.class) {
+            deposit = new CurrentAccount();
+        } else if (depositClass == StudentSavings.class) {
+            deposit = new StudentSavings();
+        } else if (depositClass == CorporateSavings.class) {
+            deposit = new CorporateSavings();
         }
     }
 
