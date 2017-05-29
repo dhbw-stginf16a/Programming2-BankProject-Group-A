@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 /**
  * Created by Jan-Robin Aumann on 23.05.2017.
  */
-public class Controller {
+public class MainSceneController {
     @FXML
     protected void buttonPressed() {
         System.exit(0);

@@ -9,15 +9,16 @@ import javafx.stage.Stage;
 /**
  * Created by Jan-Robin Aumann on 23.05.2017.
  */
-public class Main extends Application {
+public class MainApplication extends Application {
+    private Scene mainScene;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainScene.fxml"));
 
-        Scene scene = new Scene(root);
+        mainScene = new Scene(root);
 
         primaryStage.setTitle("AGROUP Bank System");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 
