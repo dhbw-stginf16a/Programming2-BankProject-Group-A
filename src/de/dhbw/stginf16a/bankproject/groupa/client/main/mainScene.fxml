@@ -1,46 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.stginf16a.bankproject.groupa.client.main.MainSceneController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="358.0" minWidth="10.0" prefWidth="298.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="10.0" prefWidth="297.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="20.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label text="Welcome to the AGROUP Bank System!" GridPane.columnSpan="2">
-         <font>
-            <Font name="System Bold" size="32.0" />
-         </font>
-      </Label>
-      <Label text="What do you want to do today?" GridPane.columnSpan="2" GridPane.rowIndex="1">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-         <children>
-            <Hyperlink alignment="TOP_LEFT" text="List/Edit Customers" />
-            <Hyperlink alignment="TOP_LEFT" text="List/Edit Savings &amp; Deposits" />
-            <Hyperlink alignment="TOP_LEFT" text="List/Edit Lendings" />
-            <Hyperlink alignment="TOP_LEFT" text="List/Edit Cards" />
-            <Hyperlink alignment="TOP_LEFT" text="List/Edit Investments" />
-         </children>
-      </VBox>
-      <Button mnemonicParsing="false" onMouseClicked="#buttonPressed" text="Exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-   </children>
-</GridPane>
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.dhbw.stginf16a.bankproject.groupa.client.main.MainSceneController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="menuitem_close" mnemonicParsing="false" onAction="#close" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center></BorderPane>
+   </center>
+   <left>
+      <ListView fx:id="listview" prefHeight="144.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="List/Edit Customers" />
+                <String fx:value="List/Edit Investments" />
+                <String fx:value="List/Edit Deposits" />
+                <String fx:value="List/Edit Lendings" />
+                <String fx:value="List/Edit Cards" />
+            </FXCollections>
+        </items>
+      </ListView>
+   </left>
+</fx:root>
