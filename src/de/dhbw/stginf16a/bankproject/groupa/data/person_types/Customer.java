@@ -30,7 +30,7 @@ public class Customer extends Person implements Serializable {
     ) throws CustomerTooYoungException {
         super(firstName, lastName, address, email, birthday, gender);
 
-        if (legalGuardian == null && Person.calculateAge(birthday, LocalDate.now()) < LEGAL_AGE) {
+        if (legalGuardian == null && calculateAge(birthday, LocalDate.now()) < LEGAL_AGE) {
             throw new CustomerTooYoungException();
         }
     }

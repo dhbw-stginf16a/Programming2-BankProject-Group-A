@@ -1,25 +1,24 @@
 package de.dhbw.stginf16a.bankproject.groupa.data;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DataStoreAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 
 /**
  * Created by leons on 5/23/17.
+ *
+ * The BankDataStore object manages all bank-data of the application.
+ *
+ * It exposes methods to get data.
+ * Altering Data is done by dispatching a DataStoreAction which will alter the store.
+ *
  */
 public class BankDataStore implements Serializable {
-    private int
-            customerIdCount = 0,
-            depositIdCount = 0,
-            cardIdCount = 0,
-            investmentIdCount = 0,
-            lendingIdCount = 0;
-
-    private HashMap<Integer, Customer> customers = new HashMap<>();
-
+    // ---------- SERIALIZATION ----------
     public static String serialize(BankDataStore dataStore) throws BankDataStoreSerializationException {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -55,16 +54,15 @@ public class BankDataStore implements Serializable {
         return (BankDataStore) object;
     }
 
-    public Customer getCustomerById(int id) {
-        return customers.get(id);
-    }
+    // ---------- DATA SECTION ----------
+    public int
+            customerIdCount = 0,
+            depositIdCount = 0,
+            cardIdCount = 0,
+            investmentIdCount = 0,
+            lendingIdCount = 0;
+    public HashMap<Integer, Customer> customers = new HashMap<>();
 
-    public Customer addCustomer(Customer customer) {
-        customer.setId(++customerIdCount);
-        customers.put(customer.getId(), customer);
 
-        // Return the Customer as you may want to know the ID directly
-        return customer;
-    }
 
 }

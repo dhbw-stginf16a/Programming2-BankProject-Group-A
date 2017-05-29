@@ -1,4 +1,4 @@
-package de.dhbw.stginf16a.bankproject.groupa.main;
+package de.dhbw.stginf16a.bankproject.groupa.client.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

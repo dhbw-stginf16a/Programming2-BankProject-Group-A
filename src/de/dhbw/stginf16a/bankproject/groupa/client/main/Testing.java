@@ -1,7 +1,10 @@
-package de.dhbw.stginf16a.bankproject.groupa.main;
+package de.dhbw.stginf16a.bankproject.groupa.client.main;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStore;
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreSerializationException;
+import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
+import de.dhbw.stginf16a.bankproject.groupa.data.DataStoreUpdateEventListener;
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.AddCustomerAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Gender;
@@ -12,31 +15,21 @@ import java.time.LocalDate;
  * Created by leons on 5/23/17.
  */
 public class Testing {
-
     public static void main(String[] args) throws CustomerTooYoungException, BankDataStoreSerializationException {
-        BankDataStore bds = new BankDataStore();
+        // The global & primary data-store of our application
+        BankDataStoreWrapper dataStore = BankDataStoreWrapper.mainDataStore;
 
         Customer newCustomer = new Customer(
                 "John",
                 "Doe",
                 "1 Infinite Loop\nCupertino, CA",
                 "john.doe@domain.tld",
-                LocalDate.of(1981, 11, 24),
+                LocalDate.of(1996, 02, 06),
                 Gender.MALE
         );
 
-        newCustomer = bds.addCustomer(newCustomer);
-        int id = newCustomer.getId();
+        dataStore.dispatch(new AddCustomerAction(newCustomer));
 
-        System.out.println(newCustomer.getId() + " - " + newCustomer.getAgeInYears());
-
-        String serialized = BankDataStore.serialize(bds);
-        System.out.println(serialized);
-
-        BankDataStore newBankDataStore = BankDataStore.deserialize(serialized);
-        Customer hopefullyOldCustomer = newBankDataStore.getCustomerById(id);
-
-        System.out.println(hopefullyOldCustomer.getId() + " - " + hopefullyOldCustomer.getAgeInYears());
+        System.out.println(dataStore.getCustomerById(1).getAgeInYears());
     }
-
 }

@@ -1,8 +1,8 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.account_types;
 
-import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.Transaction;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
+import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
 import java.util.ArrayList;
 
