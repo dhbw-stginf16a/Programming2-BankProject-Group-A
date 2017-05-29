@@ -1,9 +1,13 @@
 package de.dhbw.stginf16a.bankproject.groupa.data;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
+import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
 import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DataStoreAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DataStoreActionApplyException;
+import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Queue;
@@ -29,6 +33,7 @@ public class BankDataStoreWrapper {
 
     private LinkedBlockingQueue<DataStoreAction> actionQueue = new LinkedBlockingQueue<>();
     private boolean actionApplyInProgress = false;
+    private HashMap<Long, DataStoreAction> executedActions = new HashMap<>();
 
     // ---------- EVENT-LISTENER STUFF ----------
     private int eventListenersCount = 0;
@@ -96,11 +101,10 @@ public class BankDataStoreWrapper {
     public void dispatch(DataStoreAction action) {
         actionQueue.add(action);
 
-        if (actionQueue.size() > 1) {
+        if (actionApplyInProgress) {
             // There is another element in the queue, we don't have to apply it manually
             return;
         }
-
         // This is the only action, apply it now
         applyActions();
     }
@@ -145,6 +149,7 @@ public class BankDataStoreWrapper {
             try {
                 System.out.println("DEBUG: Pre-dispatch");
                 dataStore = action.apply(newDataStore);
+                executedActions.put(System.currentTimeMillis(), action);
                 System.out.println("DEBUG: Post-dispatch");
             } catch (DataStoreActionApplyException e) {
                 System.err.println("There was an error while applying an action to the BankDataStore:");
@@ -161,6 +166,30 @@ public class BankDataStoreWrapper {
     // ---------- DATA-STORE GETTERS ----------
     public Customer getCustomerById(int id) {
         return dataStore.customers.get(id);
+    }
+
+    public ArrayList<Customer> getCustomers() {
+        return new ArrayList<Customer>(dataStore.customers.values());
+    }
+
+    public ArrayList<Deposit> getCustomerDeposits(int customerId) {
+        return new ArrayList<Deposit>(dataStore.customers.get(customerId).deposits.values());
+    }
+
+    public ArrayList<Lending> getCustomerLendings(int customerId) {
+        return new ArrayList<Lending>(dataStore.customers.get(customerId).lendings.values());
+    }
+
+    public ArrayList<Card> getCustomerDepositCards(int customerId, int depositId) {
+        return dataStore.customers.get(customerId).deposits.get(depositId).cards;
+    }
+
+    public ArrayList<Transaction> getCustomerDepositTransactions(int customerId, int depositId) {
+        return new ArrayList<Transaction>(dataStore.customers.get(customerId).deposits.get(depositId).transactions.values());
+    }
+
+    public HashMap<Long, DataStoreAction> geExecutedActions() {
+        return executedActions;
     }
 
 }
