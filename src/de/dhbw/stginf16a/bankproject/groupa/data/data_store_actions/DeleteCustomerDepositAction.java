@@ -23,4 +23,9 @@ public class DeleteCustomerDepositAction extends DataStoreAction {
         }
         return dataStore;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: Deleted deposit id %d for customer %d",this.getClass().getSimpleName(), depositId, customerId);
+    }
 }

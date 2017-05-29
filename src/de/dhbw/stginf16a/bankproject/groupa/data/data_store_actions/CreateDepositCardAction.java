@@ -40,4 +40,8 @@ public class CreateDepositCardAction extends DataStoreAction {
 
         return dataStore;
     }
+
+    public String toString() {
+        return String.format("%s: Create card with id %d for deposit with id %d",this.getClass().getSimpleName(), card.cardId, card.cardHolderId);
+    }
 }

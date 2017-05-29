@@ -11,4 +11,6 @@ public abstract class DataStoreAction implements Serializable {
 
     public abstract BankDataStore apply(BankDataStore clonedDataStore) throws DataStoreActionApplyException;
 
+    @Override
+    public abstract String toString();
 }
