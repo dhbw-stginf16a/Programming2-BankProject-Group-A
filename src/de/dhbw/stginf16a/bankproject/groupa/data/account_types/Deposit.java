@@ -40,5 +40,10 @@ public abstract class Deposit implements Serializable {
     public long getBalance() {
         return balance;
     }
+
+    @Override
+    public String toString(){
+        return id + ", " + balance + "€, " + accountHolderId;
+    }
 }
 

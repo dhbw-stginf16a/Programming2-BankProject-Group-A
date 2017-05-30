@@ -1,5 +1,7 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.card_types;
 
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
+
 import java.io.Serializable;
 
 /**
@@ -18,5 +20,10 @@ public abstract class Card implements Serializable {
 
     public int getDepositId() {
         return depositId;
+    }
+
+    @Override
+    public String toString(){
+        return cardId + ", " + cardHolderId + ", " + depositId;
     }
 }

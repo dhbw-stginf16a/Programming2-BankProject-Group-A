@@ -22,6 +22,26 @@ public class Person implements Serializable {
         }
     }
 
+    @Override
+
+    public String toString(){
+       String output;
+       output =
+        firstName +
+        ", " +
+        lastName +
+        ", " +
+        birthday +
+        ", " +
+        email +
+        ", " +
+        address +
+        ", " +
+        gender;
+
+       return output.replace("\n", " ");
+    }
+
     public static int getAgeInYears(LocalDate birthday) {
         return calculateAge(birthday, LocalDate.now());
     }
