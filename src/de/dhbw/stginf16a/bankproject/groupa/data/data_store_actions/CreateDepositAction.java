@@ -24,6 +24,8 @@ public class CreateDepositAction extends DataStoreAction {
         } else if (depositClass == CorporateSavings.class) {
             deposit = new CorporateSavings();
         }
+
+        deposit.accountHolderId = customerId;
     }
 
 

@@ -14,6 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.awt.datatransfer.StringSelection;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -83,7 +84,12 @@ public class MainSceneController  {
         listview_content.setItems(observableCards);
     }
     public void fillDepositsData(){
-        ObservableList<Deposit> observableDeposits = FXCollections.observableArrayList(dataStore.getAllDeposits());
+        ArrayList<Deposit> deposits = dataStore.getAllDeposits();
+        ArrayList<String> depositStrings = new ArrayList<>();
+        for (Deposit deposit : deposits) {
+            depositStrings.add("Deposit ID: " + deposit.getId() + ", Deposit holder: " + dataStore.getCustomerById(deposit.accountHolderId) + ", Balance: " + (deposit.getBalance() / 100) + "€");
+        }
+        ObservableList<String> observableDeposits = FXCollections.observableArrayList(depositStrings);
         listview_content.setItems(observableDeposits);
     }
     public void fillLendingsData(){
