@@ -45,6 +45,25 @@ public class MainSceneController  {
             e.printStackTrace();
         }
 
+            listview_sidemenu.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+                switch (newValue.intValue()) {
+                    case 0: //Customers
+                        fillCustomersData();
+                        break;
+                    case 1: //Deposits
+                        fillDepositsData();
+                        break;
+                    case 2: //Lendings
+                        fillLendingsData();
+                        break;
+                    case 3: //Cards
+                        fillCardsData();
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Not implemented for this case");
+                }
+            });
+
     }
 
     public void fillCustomersData(){
