@@ -10,6 +10,7 @@ import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -192,4 +193,37 @@ public class BankDataStoreWrapper {
         return executedActions;
     }
 
+    public ArrayList<Deposit> getAllDeposits() {
+        LinkedList<Deposit> deposits = new LinkedList<>();
+        ArrayList<Customer> customers = getCustomers();
+        for (Customer customer : customers) {
+            for (Deposit deposit : customer.deposits.values()) {
+                deposits.add(deposit);
+            }
+        }
+        return new ArrayList<Deposit>(deposits);
+
+    }
+
+    public ArrayList<Card> getAllCards() {
+        LinkedList<Card> cards = new LinkedList<>();
+        ArrayList<Deposit> deposits = getAllDeposits();
+            for (Deposit deposit : deposits) {
+                for (Card card : deposit.cards) {
+                    cards.add(card);
+                }
+            }
+        return new ArrayList<Card>(cards);
+    }
+
+    public ArrayList<Lending> getAllLendigs() {
+        LinkedList<Lending> lendings = new LinkedList<>();
+        ArrayList<Customer> customers = getCustomers();
+        for (Customer customer : customers) {
+            for (Lending lending : customer.lendings.values()) {
+                lendings.add(lending);
+            }
+        }
+        return new ArrayList<Lending>(lendings);
+    }
 }
