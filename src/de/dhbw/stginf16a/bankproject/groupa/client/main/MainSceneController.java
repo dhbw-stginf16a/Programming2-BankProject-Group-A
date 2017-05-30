@@ -13,6 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import java.awt.datatransfer.StringSelection;
+import java.util.ArrayList;
+
 /**
  * Created by Jan-Robin Aumann on 23.05.2017.
  */
@@ -71,7 +74,12 @@ public class MainSceneController  {
         listview_content.setItems(observableCustomers);
     }
     public void fillCardsData(){
-        ObservableList<Card> observableCards = FXCollections.observableArrayList(dataStore.getAllCards());
+        ArrayList<Card> cards = dataStore.getAllCards();
+        ArrayList<String> cardStrings = new ArrayList<>();
+        for(Card card : cards){
+            cardStrings.add("Card id: " + card.getCardId() + ", Card owner: " + dataStore.getCustomerById(card.getCardHolderId()) + ", Deposit id:" + card.getDepositId());
+        }
+        ObservableList<String> observableCards = FXCollections.observableArrayList(cardStrings);
         listview_content.setItems(observableCards);
     }
     public void fillDepositsData(){
