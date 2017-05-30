@@ -76,6 +76,8 @@ public class Testing {
                 "I hate Webservers"));
         dataStore.dispatch(new DeleteCustomerLendingAction(1,1));
 
+        dataStore.dispatch(new DeleteCustomerCardAction(1,1,1));
+
         dataStore.dispatch(new DeleteCustomerDepositAction(2,2));
 
         dataStore.dispatch(new DeleteCustomerAction(2));
