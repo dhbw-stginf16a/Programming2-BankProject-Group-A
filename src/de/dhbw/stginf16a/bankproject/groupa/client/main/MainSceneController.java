@@ -80,12 +80,35 @@ public class MainSceneController  {
 
     }
 
-    public void fillCustomersData(){
-        ObservableList<Customer> observableCustomers = FXCollections.observableArrayList(dataStore.getCustomers());
+    public void fillCustomersData() {
+        ArrayList<Customer> customers = dataStore.getCustomers();
+        ArrayList<String> customerStrings = new ArrayList<>();
+        ObservableMap<String, Customer> observableCustomers = FXCollections.observableHashMap();
+        for (Customer customer : customers) {
+            String customerString =
+                    "Customer ID: "
+                            + customer.customerId
+                            + ", Name: "
+                            + customer.lastName
+                            + ", "
+                            + customer.firstName
+                            + ", Address: "
+                            + customer.address
+                            + ", born "
+                            + customer.birthday.toString()
+                            + ", "
+                            + customer.gender
+                            + ", EMail: "
+                            + customer.email;
+            customerStrings.add(customerString);
+            observableCustomers.put(customerString, customer);
+        }
+
+        listview_content.setItems(FXCollections.observableArrayList(customerStrings));
 
         listview_content.setCellFactory(lv -> {
 
-            ListCell<Customer> cell = new ListCell<>();
+            ListCell<String> cell = new ListCell<>();
 
             ContextMenu contextMenu = new ContextMenu();
 
@@ -93,12 +116,14 @@ public class MainSceneController  {
             MenuItem deleteItem = new MenuItem();
             deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
             deleteItem.setOnAction(event -> {
-                dataStore.dispatch(new DeleteCustomerAction(cell.getItem().customerId));
+                String item = cell.getItem();
+                Customer customerItem = observableCustomers.get(item);
+                dataStore.dispatch(new DeleteCustomerAction(customerItem.customerId));
                 listview_content.getItems().remove(cell.getItem());
             });
             contextMenu.getItems().add(deleteItem);
 
-            cell.textProperty().bind(cell.itemProperty().asString());
+            cell.textProperty().bind(cell.itemProperty());
 
             cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
                 if (isNowEmpty) {
@@ -110,8 +135,6 @@ public class MainSceneController  {
 
             return cell;
         });
-
-        listview_content.setItems(observableCustomers);
     }
     public void fillCardsData(){
         ArrayList<Card> cards = dataStore.getAllCards();
