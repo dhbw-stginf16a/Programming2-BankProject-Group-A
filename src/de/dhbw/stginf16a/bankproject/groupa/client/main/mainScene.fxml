@@ -42,7 +42,6 @@
             <FXCollections fx:factory="observableArrayList">
                 <!--Also has to be changed in the controller!-->
                 <String fx:value="List/Edit Customers" />
-                <String fx:value="List/Edit Investments" />
                 <String fx:value="List/Edit Deposits" />
                 <String fx:value="List/Edit Lendings" />
                 <String fx:value="List/Edit Cards" />

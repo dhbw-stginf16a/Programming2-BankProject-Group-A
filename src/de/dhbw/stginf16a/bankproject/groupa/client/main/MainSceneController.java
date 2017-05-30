@@ -2,6 +2,10 @@ package de.dhbw.stginf16a.bankproject.groupa.client.main;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
 import de.dhbw.stginf16a.bankproject.groupa.data.DummyData;
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
+import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
+import de.dhbw.stginf16a.bankproject.groupa.data.investment_types.Investment;
+import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
 import javafx.collections.FXCollections;
@@ -67,21 +71,19 @@ public class MainSceneController  {
     }
 
     public void fillCustomersData(){
-        ArrayList<Customer> customers = dataStore.getCustomers();
-        ObservableList<Customer> observableCustomers = FXCollections.observableArrayList(customers);
-
+        ObservableList<Customer> observableCustomers = FXCollections.observableArrayList(dataStore.getCustomers());
         listview_content.setItems(observableCustomers);
     }
     public void fillCardsData(){
-
-    }
-    public void fillInvestmentsData(){
-
+        ObservableList<Card> observableCards = FXCollections.observableArrayList();
+        listview_content.setItems(observableCards);
     }
     public void fillDepositsData(){
-
+        ObservableList<Deposit> observableDeposits = FXCollections.observableArrayList();
+        listview_content.setItems(observableDeposits);
     }
     public void fillLendingsData(){
-
+        ObservableList<Lending> observableLendings = FXCollections.observableArrayList();
+        listview_content.setItems(observableLendings);
     }
 }
