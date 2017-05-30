@@ -4,13 +4,18 @@ import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
 import de.dhbw.stginf16a.bankproject.groupa.data.DummyData;
 import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DeleteCustomerAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.awt.datatransfer.StringSelection;
@@ -49,6 +54,8 @@ public class MainSceneController  {
             e.printStackTrace();
         }
 
+
+
             listview_sidemenu.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
                 switch (newValue.intValue()) {
                     case 0: //Customers
@@ -72,6 +79,35 @@ public class MainSceneController  {
 
     public void fillCustomersData(){
         ObservableList<Customer> observableCustomers = FXCollections.observableArrayList(dataStore.getCustomers());
+
+        listview_content.setCellFactory(lv -> {
+
+            ListCell<Customer> cell = new ListCell<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+
+            MenuItem deleteItem = new MenuItem();
+            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
+            deleteItem.setOnAction(event -> {
+                dataStore.dispatch(new DeleteCustomerAction(cell.getItem().customerId));
+                listview_content.getItems().remove(cell.getItem());
+            });
+            contextMenu.getItems().add(deleteItem);
+
+            cell.textProperty().bind(cell.itemProperty().asString());
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+
+            return cell;
+        });
+
         listview_content.setItems(observableCustomers);
     }
     public void fillCardsData(){
