@@ -37,7 +37,7 @@ public class Person implements Serializable {
         ", " +
         address +
         ", " +
-        gender;
+        gender.toString();
 
        return output.replace("\n", " ");
     }
