@@ -1,16 +1,23 @@
 package de.dhbw.stginf16a.bankproject.groupa.client.main;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
+import de.dhbw.stginf16a.bankproject.groupa.data.DataStoreUpdateEventListener;
 import de.dhbw.stginf16a.bankproject.groupa.data.DummyData;
 import de.dhbw.stginf16a.bankproject.groupa.data.account_types.Deposit;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.Card;
+import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.DeleteCustomerCardAction;
 import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.Lending;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 import java.awt.datatransfer.StringSelection;
@@ -77,11 +84,48 @@ public class MainSceneController  {
     public void fillCardsData(){
         ArrayList<Card> cards = dataStore.getAllCards();
         ArrayList<String> cardStrings = new ArrayList<>();
+        ObservableMap<String, Card> observableCards = FXCollections.observableHashMap();
         for(Card card : cards){
-            cardStrings.add("Card id: " + card.getCardId() + ", Card owner: " + dataStore.getCustomerById(card.getCardHolderId()) + ", Deposit id:" + card.getDepositId());
+            String cardstring =
+                    "Card id: "
+                    + card.getCardId()
+                    + ", Card owner: "
+                    + dataStore.getCustomerById(card.getCardHolderId())
+                    + ", Deposit id:" + card.getDepositId();
+            cardStrings.add(cardstring);
+            observableCards.put(cardstring, card);
         }
-        ObservableList<String> observableCards = FXCollections.observableArrayList(cardStrings);
-        listview_content.setItems(observableCards);
+
+        listview_content.setItems(FXCollections.observableArrayList(cardStrings));
+        listview_content.setCellFactory(lv -> {
+
+            ListCell<String> cell = new ListCell<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+
+            MenuItem deleteItem = new MenuItem();
+            deleteItem.textProperty().bind(Bindings.format("Delete \"%s\"", cell.itemProperty()));
+            deleteItem.setOnAction(event -> {
+                String item = cell.getItem();
+                Card carditem = observableCards.get(item);
+                dataStore.dispatch(new DeleteCustomerCardAction(carditem.cardHolderId, carditem.depositId, carditem.cardId));
+                listview_content.getItems().remove(cell.getItem());
+            });
+
+            contextMenu.getItems().add(deleteItem);
+
+            cell.textProperty().bind(cell.itemProperty());
+
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(contextMenu);
+                }
+            });
+            return cell ;
+        });
     }
     public void fillDepositsData(){
         ArrayList<Deposit> deposits = dataStore.getAllDeposits();
