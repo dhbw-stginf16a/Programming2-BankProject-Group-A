@@ -1,6 +1,7 @@
 package de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions;
 
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStore;
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.CorporateSavings;
 import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.*;
 
 /**
@@ -11,20 +12,16 @@ public class CreateLendingAction extends DataStoreAction {
     private int customerId;
     private long interestRate;
 
-    public CreateLendingAction(LendingType type, int customerId, long interestRate) {
+    public CreateLendingAction(Class lendingClass, int customerId, long interestRate) {
         this.customerId = customerId;
         this.interestRate = interestRate;
 
-        switch (type) {
-            case CorporateLoan:
-                lending = new CorporateLoan();
-                break;
-            case PersonalLoan:
-                lending = new PersonalLoan();
-                break;
-            case Mortgage:
-                lending = new Mortgage();
-                break;
+        if (lendingClass == CorporateLoan.class) {
+            lending = new CorporateLoan();
+        } else if (lendingClass == PersonalLoan.class) {
+            lending = new PersonalLoan();
+        } else if (lendingClass == Mortgage.class) {
+            lending = new Mortgage();
         }
     }
 
@@ -42,5 +39,9 @@ public class CreateLendingAction extends DataStoreAction {
         }
 
         return dataStore;
+    }
+
+    public String toString() {
+        return String.format("%s: Create lending with id %d for customer %d", this.getClass().getSimpleName(), lending.id, customerId);
     }
 }

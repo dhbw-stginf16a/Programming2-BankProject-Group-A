@@ -42,4 +42,8 @@ public class MakeWithdrawalAction extends DataStoreAction {
 
         return dataStore;
     }
+
+    public String toString() {
+        return String.format("%s: Withdrew amount %d from customer id %d for deposit id %d",this.getClass().getSimpleName(), amount, customerId, depositId);
+    }
 }

@@ -39,4 +39,9 @@ public class CreateTransactionAction extends DataStoreAction {
 
         return dataStore;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: Create transaction with id %d from customer %d account %d to customer %d account %d",this.getClass().getSimpleName(), transaction.id, transaction.senderId, senderDepositId, transaction.receiverId, receiverDepositId);
+    }
 }

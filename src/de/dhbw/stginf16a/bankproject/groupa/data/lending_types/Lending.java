@@ -15,4 +15,21 @@ public abstract class Lending implements Serializable {
     public long amount;
 
     public long interestRate; // per 1000
+
+    public int getId() {
+        return id;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public long getInterestRate() {
+        return interestRate;
+    }
+
 }

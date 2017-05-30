@@ -25,4 +25,29 @@ public class Person implements Serializable {
     public static int getAgeInYears(LocalDate birthday) {
         return calculateAge(birthday, LocalDate.now());
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
 }

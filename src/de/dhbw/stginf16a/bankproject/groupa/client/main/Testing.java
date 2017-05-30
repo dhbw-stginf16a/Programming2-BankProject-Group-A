@@ -3,11 +3,11 @@ package de.dhbw.stginf16a.bankproject.groupa.client.main;
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreSerializationException;
 import de.dhbw.stginf16a.bankproject.groupa.data.BankDataStoreWrapper;
 import de.dhbw.stginf16a.bankproject.groupa.data.DataStoreUpdateEventListener;
-import de.dhbw.stginf16a.bankproject.groupa.data.account_types.DepositType;
+import de.dhbw.stginf16a.bankproject.groupa.data.DummyData;
+import de.dhbw.stginf16a.bankproject.groupa.data.account_types.CurrentAccount;
 import de.dhbw.stginf16a.bankproject.groupa.data.card_types.CreditCard;
 import de.dhbw.stginf16a.bankproject.groupa.data.data_store_actions.*;
-import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.LendingType;
-import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Customer;
+import de.dhbw.stginf16a.bankproject.groupa.data.lending_types.PersonalLoan;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.CustomerTooYoungException;
 import de.dhbw.stginf16a.bankproject.groupa.data.person_types.Gender;
 
@@ -49,10 +49,10 @@ public class Testing {
         ));
 
         dataStore.dispatch(new CreateDepositAction(
-                DepositType.CurrentAccount,
+                CurrentAccount.class,
                 1));
 
-        dataStore.dispatch(new CreateDepositAction(DepositType.CurrentAccount, 2));
+        dataStore.dispatch(new CreateDepositAction(CurrentAccount.class, 2));
         dataStore.dispatch(new CreateDepositCardAction(
                 CreditCard.class,
                 1,
@@ -65,7 +65,7 @@ public class Testing {
                 30000
         ));
 
-        dataStore.dispatch(new CreateLendingAction(LendingType.PersonalLoan, 1, 100));
+        dataStore.dispatch(new CreateLendingAction(PersonalLoan.class, 1, 100));
 
         dataStore.dispatch(new CreateTransactionAction(
                 1,
@@ -79,6 +79,9 @@ public class Testing {
         dataStore.dispatch(new DeleteCustomerDepositAction(2,2));
 
         dataStore.dispatch(new DeleteCustomerAction(2));
+
+        DummyData.insertDummyData(dataStore);
+
         System.out.println(dataStore.getCustomerById(1));
     }
 }

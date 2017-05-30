@@ -28,6 +28,8 @@ public class CreateCustomerAction extends DataStoreAction implements Serializabl
         customer.email = email;
         customer.birthday = birthday;
         customer.gender = gender;
+        // Will be overwritten by apply
+        customer.customerId = -1;
 
         if (legalGuardian == null && Person.getAgeInYears(birthday) < Customer.LEGAL_AGE) {
             throw new CustomerTooYoungException();
@@ -62,5 +64,10 @@ public class CreateCustomerAction extends DataStoreAction implements Serializabl
         dataStore.customers.put(id, this.customer);
 
         return dataStore;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s: Create Customer with id %d (%s, %s)",this.getClass().getSimpleName(), customer.customerId, customer.lastName, customer.firstName);
     }
 }

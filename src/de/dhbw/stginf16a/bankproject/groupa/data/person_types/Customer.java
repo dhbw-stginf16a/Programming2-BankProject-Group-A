@@ -19,4 +19,12 @@ public class Customer extends Person implements Serializable {
 
     public HashMap<Integer, Lending> lendings = new HashMap<>();
     public HashMap<Integer, Deposit> deposits = new HashMap<>();
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public LegalGuardian getLegalGuardian() {
+        return legalGuardian;
+    }
 }

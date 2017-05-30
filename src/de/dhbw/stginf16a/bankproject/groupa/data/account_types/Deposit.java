@@ -28,5 +28,17 @@ public abstract class Deposit implements Serializable {
 
         return true;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getAccountHolderId() {
+        return accountHolderId;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
 }
 

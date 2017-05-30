@@ -7,4 +7,16 @@ import java.io.Serializable;
  */
 public abstract class Card implements Serializable {
     public int cardId, cardHolderId, depositId;
+
+    public int getCardId() {
+        return cardId;
+    }
+
+    public int getCardHolderId() {
+        return cardHolderId;
+    }
+
+    public int getDepositId() {
+        return depositId;
+    }
 }

@@ -22,4 +22,9 @@ public class DeleteCustomerAction extends DataStoreAction {
         }
         return dataStore;
     }
+
+
+    public String toString() {
+        return String.format("%s: Deleted customer with id %d", this.getClass().getSimpleName(), customerId);
+    }
 }
